@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fresh Fruits & Vegetables Delivery</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="toast-container" id="toast-container"></div>
+    <header>
+      <nav class="navbar">
+        <div class="container">
+          <div class="nav-left">
+            <div class="brand">
+              <div class="logo">&#x1F96C;</div>
+              <h1>Fresh Mart</h1>
+            </div>
+          </div>
+          <div class="nav-right">
+            <div class="nav-item cart">
+              <a
+                href="cart.html"
+                style="text-decoration: none; color: inherit; display: flex; align-items: center"
+              >
+                <span class="icon">&#x1F6D2;</span>
+                <span class="count" id="cart-count">0</span>
+                <span style="color: black">Cart</span>
+              </a>
+            </div>
+            <div class="nav-item profile">
+              <span class="icon">&#x1F464;</span>
+              <span style="color: black"> Profile</span>
+            </div>
+            <div class="auth-buttons">
+              <button class="btn-login">Login</button>
+              <button class="btn-signup">Sign Up</button>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <!-- REPLACED: removed the search input for fruits/vegetables and added filter buttons -->
+      <div class="filter-buttons" role="toolbar" aria-label="Filter products">
+        <button class="filter-button active" data-filter="all" id="btn-all">All</button>
+        <button class="filter-button" data-filter="fruits" id="btn-fruits">Fruits</button>
+        <button class="filter-button" data-filter="vegetables" id="btn-vegetables">Vegetables</button>
+      </div>
+
+      <!-- Fruits Section -->
+      <section class="product-section" id="section-fruits">
+        <h2>Fruits</h2>
+        <div class="product-grid" id="fruits-grid">
+          <div class="product-card" data-id="1" data-type="fruits">
+            <h3 class="product-name">Apple</h3>
+            <img src="https://via.placeholder.com/400x300?text=Apple" alt="Apple" loading="lazy" />
+            <div class="price-unit">
+              <span class="price">₹80</span>
+              <span class="unit">(1 kg)</span>
+            </div>
+            <div class="quantity-control">
+              <span>Quantity:</span>
+              <button class="qty-btn minus">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
+            <button class="btn-primary add-to-cart">Add to Cart</button>
+          </div>
+          <div class="product-card" data-id="2" data-type="fruits">
+            <h3 class="product-name">Banana</h3>
+            <img src="https://via.placeholder.com/400x300?text=Banana" alt="Banana" loading="lazy" />
+            <div class="price-unit">
+              <span class="price">₹40</span>
+              <span class="unit">(1 dozen)</span>
+            </div>
+            <div class="quantity-control">
+              <span>Quantity:</span>
+              <button class="qty-btn minus">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
+            <button class="btn-primary add-to-cart">Add to Cart</button>
+          </div>
+          <div class="product-card" data-id="3" data-type="fruits">
+            <h3 class="product-name">Mango</h3>
+            <img src="https://via.placeholder.com/400x300?text=Mango" alt="Mango" loading="lazy" />
+            <div class="price-unit">
+              <span class="price">₹150</span>
+              <span class="unit">(1 kg)</span>
+            </div>
+            <div class="quantity-control">
+              <span>Quantity:</span>
+              <button class="qty-btn minus">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
+            <button class="btn-primary add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vegetables Section -->
+      <section class="product-section" id="section-vegetables">
+        <h2>Vegetables</h2>
+        <div class="product-grid" id="vegetables-grid">
+          <div class="product-card" data-id="4" data-type="vegetables">
+            <h3 class="product-name">Tomato</h3>
+            <img src="https://via.placeholder.com/400x300?text=Tomato" alt="Tomato" loading="lazy" />
+            <div class="price-unit">
+              <span class="price">₹30</span>
+              <span class="unit">(1 kg)</span>
+            </div>
+            <div class="quantity-control">
+              <span>Quantity:</span>
+              <button class="qty-btn minus">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
+            <button class="btn-primary add-to-cart">Add to Cart</button>
+          </div>
+          <div class="product-card" data-id="5" data-type="vegetables">
+            <h3 class="product-name">Potato</h3>
+            <img src="https://via.placeholder.com/400x300?text=Potato" alt="Potato" loading="lazy" />
+            <div class="price-unit">
+              <span class="price">₹25</span>
+              <span class="unit">(1 kg)</span>
+            </div>
+            <div class="quantity-control">
+              <span>Quantity:</span>
+              <button class="qty-btn minus">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
+            <button class="btn-primary add-to-cart">Add to Cart</button>
+          </div>
+          <div class="product-card" data-id="6" data-type="vegetables">
+            <h3 class="product-name">Spinach</h3>
+            <img src="https://via.placeholder.com/400x300?text=Spinach" alt="Spinach" loading="lazy" />
+            <div class="price-unit">
+              <span class="price">₹20</span>
+              <span class="unit">(250 g)</span>
+            </div>
+            <div class="quantity-control">
+              <span>Quantity:</span>
+              <button class="qty-btn minus">-</button>
+              <span class="qty-display">1</span>
+              <button class="qty-btn plus">+</button>
+            </div>
+            <button class="btn-primary add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  
+    <!-- Order Confirmation Modal -->
+    <div id="confirmation-modal" class="modal">
+      <div class="modal-content">
+        <h2>✅ Order Placed Successfully!</h2>
+        <div id="order-details"></div>
+        <button class="btn-primary" onclick="closeConfirmation()">Done</button>
+      </div>
+    </div>
+
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h3>About</h3>
+          <p>&#x1F4CD; 123 Fresh Street, Market Area</p>
+          <p>&#x1F4E7; contact@freshmart.com</p>
+          <p>&#x1F4DE; +91 1234567890</p>
+          <div class="footer-search">
+            <input type="text" placeholder="Search..." />
+            <button>&#x1F50D;</button>
+          </div>
+        </div>
+
+        <div class="footer-section">
+          <h3>Information</h3>
+          <ul>
+            <li><a href="/about">About Us</a></li>
+            <li><a href="/products">Products</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/help">Help & Support</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section instagram-grid">
+          <h3>Instagram</h3>
+          <div class="insta-grid">
+            <div class="insta-item">&#x1F951;</div>
+            <div class="insta-item">&#x1F34E;</div>
+            <div class="insta-item">&#x1F955;</div>
+            <div class="insta-item">&#x1F345;</div>
+            <div class="insta-item">&#x1F966;</div>
+            <div class="insta-item">&#x1F34A;</div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="footer-divider" />
+
+      <div class="container footer-bottom">
+        <div class="copyright">© 2024 Fresh Mart. All rights reserved.</div>
+        <div class="slogan">Fresh from Farm to Your Doorstep! &#x1F331;</div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

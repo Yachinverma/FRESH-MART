@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Fresh Mart</title>
+    <link rel="stylesheet" href="admin-style.css">
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="login-page" class="login-container">
+        <div class="login-box">
+            <h2>🔐 Admin Login</h2>
+            <form onsubmit="login(event)">
+                <input type="text" id="username" placeholder="Username" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button type="submit" class="btn-primary">Login</button>
+            </form>
+            <p class="demo-credentials">Demo: admin / admin123</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div id="admin-dashboard" class="dashboard" style="display: none;">
+        <header>
+            <div class="container">
+                <h1>🥬 Fresh Mart - Admin Panel</h1>
+                <button class="logout-btn" onclick="logout()">Logout</button>
+            </div>
+        </header>
+
+        <main class="container">
+            <!-- Statistics -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total Orders</h3>
+                    <p class="stat-number" id="total-orders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Pending Orders</h3>
+                    <p class="stat-number" id="pending-orders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Completed Today</h3>
+                    <p class="stat-number" id="completed-orders">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>Revenue Today</h3>
+                    <p class="stat-number">₹<span id="revenue">0</span></p>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters">
+                <select id="slot-filter" onchange="filterOrders()">
+                    <option value="all">All Slots</option>
+                    <option value="morning">Morning</option>
+                    <option value="afternoon">Afternoon</option>
+                    <option value="evening">Evening</option>
+                    <option value="immediate">Immediate</option>
+                </select>
+
+                <select id="status-filter" onchange="filterOrders()">
+                    <option value="all">All Status</option>
+                    <option value="pending">Pending</option>
+                    <option value="preparing">Preparing</option>
+                    <option value="out-for-delivery">Out for Delivery</option>
+                    <option value="delivered">Delivered</option>
+                </select>
+
+                <button class="btn-primary" onclick="refreshOrders()">🔄 Refresh</button>
+            </div>
+
+            <!-- Orders List -->
+            <div class="orders-section">
+                <h2>Orders Management</h2>
+                <div id="orders-list">
+                    <!-- Orders will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Add Product Section -->
+            <div class="add-product-section">
+                <h2>Add New Product</h2>
+                <form class="product-form" onsubmit="addProduct(event)">
+                    <input type="text" id="product-name" placeholder="Product Name" required>
+                    <select id="product-category" required>
+                        <option value="">Select Category</option>
+                        <option value="fruits">Fruits</option>
+                        <option value="vegetables">Vegetables</option>
+                    </select>
+                    <input type="number" id="product-price" placeholder="Price (₹)" required>
+                    <input type="text" id="product-unit" placeholder="Unit (e.g., per kg)" required>
+                    <input type="url" id="product-image" placeholder="Image URL" required>
+                    <button type="submit" class="btn-primary">Add Product</button>
+                </form>
+            </div>
+
+            <!-- Products List -->
+            <div class="products-section">
+                <h2>Products Management</h2>
+                <div id="products-list" class="products-grid">
+                    <!-- Products will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Order Details Modal -->
+    <div id="order-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeOrderModal()">&times;</span>
+            <h2>Order Details</h2>
+            <div id="order-modal-content">
+                <!-- Order details will be shown here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="admin-script.js"></script>
+</body>
+</html>

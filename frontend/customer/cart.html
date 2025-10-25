@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Cart - Fresh Mart</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="toast-container" id="toast-container"></div>
+  <header>
+    <!-- You can copy the same navbar from index.html here -->
+    <!-- ...existing navbar code... -->
+  </header>
+  <main class="container">
+    <section>
+      <h2>Your Cart</h2>
+      <div id="cart-items" class="cart-items-list"></div>
+      <div class="cart-summary">
+        <div class="cart-total">
+          <strong>Total:</strong> ₹<span id="total-amount">0</span>
+        </div>
+        <div class="cart-actions">
+          <button class="btn-primary" onclick="proceedToCheckout()">Proceed to Checkout</button>
+        </div>
+      </div>
+    </section>
+    <!-- Add checkout modal here -->
+    <div id="checkout-modal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeCheckout()">&times;</span>
+        <h2>Checkout</h2>
+        <div class="checkout-form">
+          <label>Delivery Address:</label>
+          <textarea
+            id="delivery-address"
+            rows="3"
+            placeholder="Enter your complete delivery address"
+          ></textarea>
+          <label>Phone Number:</label>
+          <input type="tel" id="phone" placeholder="Enter your phone number" />
+          <label>Delivery Slot:</label>
+          <select id="delivery-slot">
+            <option value="morning">Morning (8 AM - 12 PM)</option>
+            <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+            <option value="evening">Evening (4 PM - 8 PM)</option>
+            <option value="immediate">Immediate (Extra ₹30)</option>
+          </select>
+          <label>Payment Method:</label>
+          <div class="payment-method">
+            <input type="radio" id="cod" name="payment" value="cod" checked />
+            <label for="cod">Cash on Delivery</label>
+          </div>
+          <div class="order-summary">
+            <p>Subtotal: ₹<span id="checkout-subtotal">0</span></p>
+            <p>Delivery Charge: ₹<span id="delivery-charge">0</span></p>
+            <p class="total-checkout">
+              Total: ₹<span id="checkout-total">0</span>
+            </p>
+          </div>
+          <button class="btn-primary" onclick="placeOrder()">
+            Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- ...confirmation modal if needed... -->
+  </main>
+  <!-- You can copy the checkout and confirmation modals if needed -->
+  <footer>
+    <!-- ...existing footer code... -->
+  </footer>
+  <script>
+    // --- Cart Data ---
+    const products = [
+      { id: 1, type: 'fruits', name: 'Apple', price: 80, unit: '1 kg', image: 'https://via.placeholder.com/400x300?text=Apple' },
+      { id: 2, type: 'fruits', name: 'Banana', price: 40, unit: '1 dozen', image: 'https://via.placeholder.com/400x300?text=Banana' },
+      { id: 3, type: 'fruits', name: 'Mango', price: 150, unit: '1 kg', image: 'https://via.placeholder.com/400x300?text=Mango' },
+      { id: 4, type: 'vegetables', name: 'Tomato', price: 30, unit: '1 kg', image: 'https://via.placeholder.com/400x300?text=Tomato' },
+      { id: 5, type: 'vegetables', name: 'Potato', price: 25, unit: '1 kg', image: 'https://via.placeholder.com/400x300?text=Potato' },
+      { id: 6, type: 'vegetables', name: 'Spinach', price: 20, unit: '250 g', image: 'https://via.placeholder.com/400x300?text=Spinach' }
+    ];
+
+    const cart = {};
+
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`;
+      toast.textContent = message;
+      document.getElementById('toast-container').appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+
+    function saveCart() {
+      localStorage.setItem('cart', JSON.stringify(cart));
+    }
+    function loadCart() {
+      const data = localStorage.getItem('cart');
+      if (data) {
+        const parsed = JSON.parse(data);
+        Object.keys(parsed).forEach(id => cart[id] = parsed[id]);
+      }
+    }
+
+    function updateCartCount() {
+      const count = Object.values(cart).reduce((s, i) => s + i.qty, 0);
+      const el = document.getElementById('cart-count');
+      if (el) el.textContent = count;
+    }
+
+    function renderCart() {
+      const container = document.getElementById('cart-items');
+      container.innerHTML = '';
+      const items = Object.values(cart);
+      if (items.length === 0) {
+        container.innerHTML = '<p>Your cart is empty.</p>';
+      } else {
+        items.forEach(item => {
+          const el = document.createElement('div');
+          el.className = 'cart-item';
+          el.innerHTML = `
+            <div class="cart-item-left">
+              <img src="${item.image}" alt="${item.name}" />
+            </div>
+            <div class="cart-item-details">
+              <h4>${item.name}</h4>
+              <div class="price-unit">
+                <span class="price">₹${item.price}</span>
+                <span class="unit">(${item.unit})</span>
+              </div>
+              <div class="cart-qty" data-id="${item.id}">
+                <button class="cart-qty-btn minus">-</button>
+                <span class="qty-value">${item.qty}</span>
+                <button class="cart-qty-btn plus">+</button>
+              </div>
+            </div>
+            <div class="cart-item-actions">
+              <div class="item-subtotal">₹${item.price * item.qty}</div>
+              <button class="remove-btn">Remove</button>
+            </div>
+          `;
+          container.appendChild(el);
+        });
+      }
+      const total = items.reduce((s, it) => s + it.price * it.qty, 0);
+      document.getElementById('total-amount').textContent = total;
+      saveCart();
+    }
+
+    // Event delegation for cart plus/minus and remove
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCart();
+      updateCartCount();
+      renderCart();
+
+      document.getElementById('cart-items').addEventListener('click', function(e) {
+        const parentCartQty = e.target.closest('.cart-qty');
+        const parentCartItem = e.target.closest('.cart-item');
+        if (e.target.classList.contains('cart-qty-btn')) {
+          const id = parseInt(parentCartQty.getAttribute('data-id'));
+          if (e.target.classList.contains('plus')) {
+            cart[id].qty += 1;
+            showToast(`Updated ${cart[id].name} quantity to ${cart[id].qty}`);
+          } else if (e.target.classList.contains('minus')) {
+            cart[id].qty -= 1;
+            if (cart[id].qty <= 0) {
+              showToast(`${cart[id].name} removed from cart!`, 'error');
+              delete cart[id];
+            } else {
+              showToast(`Updated ${cart[id].name} quantity to ${cart[id].qty}`);
+            }
+          }
+          updateCartCount();
+          renderCart();
+        }
+        if (e.target.classList.contains('remove-btn')) {
+          const name = parentCartItem.querySelector('h4').textContent;
+          const id = Object.keys(cart).find(
+            key => cart[key].name === name
+          );
+          if (id) {
+            showToast(`${cart[id].name} removed from cart!`, 'error');
+            delete cart[id];
+            updateCartCount();
+            renderCart();
+          }
+        }
+      });
+
+      // Proceed to checkout button
+      document.querySelector('.cart-actions .btn-primary').addEventListener('click', function() {
+        openCheckout();
+      });
+    });
+
+    function openCheckout() {
+      // Calculate subtotal and total for checkout modal
+      const subtotal = Object.values(cart).reduce((s, it) => s + it.price * it.qty, 0);
+      document.getElementById('checkout-subtotal').textContent = subtotal;
+      document.getElementById('checkout-total').textContent = subtotal;
+      document.getElementById('delivery-charge').textContent = "0";
+      document.getElementById('checkout-modal').style.display = 'block';
+    }
+
+    function closeCheckout() {
+      document.getElementById('checkout-modal').style.display = 'none';
+    }
+
+    function placeOrder() {
+      alert('Place order flow not implemented in this demo.');
+    }
+  </script>
+</body>
+</html>
