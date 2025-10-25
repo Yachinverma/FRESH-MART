@@ -56,7 +56,12 @@ document.querySelectorAll('.product-card .add-to-cart').forEach(btn => {
     if (!cart[id]) {
       cart[id] = { ...product, qty: 0 };
     }
-    cart[id].qty = qty;
+    cart[id].qty += qty; // Add to existing quantity instead of overriding
+
+    // Reset quantity display to 1
+    const qtyDisplay = document.querySelector(`[data-id="${id}"] .qty-display`);
+    if (qtyDisplay) qtyDisplay.textContent = "1";
+
     updateCartCount();
     saveCart();
     showToast(`${qty}x ${product.name} added to cart!`);

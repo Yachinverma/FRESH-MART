@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - Fresh Mart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="toast-container" id="toast-container"></div>
+    <!-- Copy the same navbar from index.html -->
+    <header>
+        <!-- ...existing navbar code... -->
+    </header>
+
+    <main class="container">
+        <section class="checkout-section">
+            <h2>Checkout</h2>
+            <div class="checkout-form">
+                <label>Delivery Address:</label>
+                <textarea id="delivery-address" rows="3" placeholder="Enter your complete delivery address"></textarea>
+
+                <label>Phone Number:</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number" />
+
+                <label>Delivery Slot:</label>
+                <select id="delivery-slot">
+                    <option value="morning">Morning (8 AM - 12 PM)</option>
+                    <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                    <option value="evening">Evening (4 PM - 8 PM)</option>
+                    <option value="immediate">Immediate (Extra ₹30)</option>
+                </select>
+
+                <label>Payment Method:</label>
+                <div class="payment-method">
+                    <input type="radio" id="cod" name="payment" value="cod" checked />
+                    <label for="cod">Cash on Delivery</label>
+                </div>
+
+                <div class="order-summary">
+                    <p>Subtotal: ₹<span id="checkout-subtotal">0</span></p>
+                    <p>Delivery Charge: ₹<span id="delivery-charge">0</span></p>
+                    <p class="total-checkout">Total: ₹<span id="checkout-total">0</span></p>
+                </div>
+
+                <button class="btn-primary" onclick="placeOrder()">Place Order</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Copy the same footer from index.html -->
+    <footer>
+        <!-- ...existing footer code... -->
+    </footer>
+
+    <script>
+        // Load cart data and populate totals
+        const cart = JSON.parse(localStorage.getItem('cart') || '{}');
+        const subtotal = Object.values(cart).reduce((s, it) => s + it.price * it.qty, 0);
+        document.getElementById('checkout-subtotal').textContent = subtotal;
+        document.getElementById('checkout-total').textContent = subtotal;
+        document.getElementById('delivery-charge').textContent = "0";
+
+        function placeOrder() {
+            // Clear cart after order
+            localStorage.removeItem('cart');
+            alert('Order placed successfully!');
+            window.location.href = 'index.html'; // Redirect to home page
+        }
+    </script>
+</body>
+</html>

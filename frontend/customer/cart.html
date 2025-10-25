@@ -21,49 +21,11 @@
           <strong>Total:</strong> ₹<span id="total-amount">0</span>
         </div>
         <div class="cart-actions">
-          <button class="btn-primary" onclick="proceedToCheckout()">Proceed to Checkout</button>
+          <a href="checkout.html" class="btn-primary">Proceed to Checkout</a>
         </div>
       </div>
     </section>
-    <!-- Add checkout modal here -->
-    <div id="checkout-modal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeCheckout()">&times;</span>
-        <h2>Checkout</h2>
-        <div class="checkout-form">
-          <label>Delivery Address:</label>
-          <textarea
-            id="delivery-address"
-            rows="3"
-            placeholder="Enter your complete delivery address"
-          ></textarea>
-          <label>Phone Number:</label>
-          <input type="tel" id="phone" placeholder="Enter your phone number" />
-          <label>Delivery Slot:</label>
-          <select id="delivery-slot">
-            <option value="morning">Morning (8 AM - 12 PM)</option>
-            <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
-            <option value="evening">Evening (4 PM - 8 PM)</option>
-            <option value="immediate">Immediate (Extra ₹30)</option>
-          </select>
-          <label>Payment Method:</label>
-          <div class="payment-method">
-            <input type="radio" id="cod" name="payment" value="cod" checked />
-            <label for="cod">Cash on Delivery</label>
-          </div>
-          <div class="order-summary">
-            <p>Subtotal: ₹<span id="checkout-subtotal">0</span></p>
-            <p>Delivery Charge: ₹<span id="delivery-charge">0</span></p>
-            <p class="total-checkout">
-              Total: ₹<span id="checkout-total">0</span>
-            </p>
-          </div>
-          <button class="btn-primary" onclick="placeOrder()">
-            Place Order
-          </button>
-        </div>
-      </div>
-    </div>
+    <!-- Remove the checkout modal since we now have a separate page -->
     <!-- ...confirmation modal if needed... -->
   </main>
   <!-- You can copy the checkout and confirmation modals if needed -->
