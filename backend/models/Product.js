@@ -4,12 +4,13 @@ const productSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, 'Please provide product name'],
-        trim: true
+        trim: true,
+        index: true
     },
-    category: {
+    type: {
         type: String,
-        required: [true, 'Please provide category'],
         enum: ['fruits', 'vegetables'],
+        required: [true, 'Please provide category'],
         lowercase: true
     },
     price: {
@@ -27,6 +28,14 @@ const productSchema = new mongoose.Schema({
         required: [true, 'Please provide image URL']
     },
     inStock: {
+        type: Boolean,
+        default: true
+    },
+    stock: {
+        type: Number,
+        default: null // null means unlimited / not tracked
+    },
+    isActive: {
         type: Boolean,
         default: true
     }

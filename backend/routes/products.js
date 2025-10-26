@@ -7,7 +7,11 @@ const Product = require('../models/Product');
 // @access  Public
 router.get('/', async (req, res) => {
     try {
-        const products = await Product.find().sort({ createdAt: -1 });
+        const filter = {};
+        if (req.query.type) {
+            filter.type = req.query.type; // filter by type (fruits/vegetables)
+        }
+        const products = await Product.find(filter).sort({ createdAt: -1 });
         res.json(products);
     } catch (error) {
         console.error('Error fetching products:', error);
